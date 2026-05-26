@@ -69,4 +69,24 @@ router.post("/login", async (req, res) => {
     }
 });
 
+// GITHUB OAUTH - GET /api/users/auth/github
+const passport = require("../config/passport");
+
+router.get(
+    "/auth/github",
+    passport.authenticate("github", { scope: ["user:email"] })
+);
+
+// GITHUB CALLBACK - GET /api/users/auth/github/callback
+router.get(
+    "/auth/github/callback",
+    passport.authenticate("github", { failureRedirect: "/", session: false }),
+    (req, res) => {
+        // req.user is set by Passport after successful GitHub auth
+        const token = signToken(req.user);
+        // Return token to the client via redirect with query parameter
+        res.redirect("http://localhost:3001/?token=" + token);
+    }
+);
+
 module.exports = router;
