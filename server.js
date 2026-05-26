@@ -2,9 +2,13 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const connectDB = require("./config/connection");
 
 // Local Environmental Variables
 const PORT = process.env.PORT || 3001;
+
+// DATABASE
+connectDB();
 
 // MIDDLEWARE
 app.use(express.json());
