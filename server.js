@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const connectDB = require("./config/connection");
+const userRoutes = require("./routes/userRoutes");
 
 // Local Environmental Variables
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Innovate Inc. Portal API is running...");
 });
+
+app.use("/api/users", userRoutes);
 
 // PORT
 app.listen(PORT, () => {
