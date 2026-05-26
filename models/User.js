@@ -28,14 +28,14 @@ const userSchema = new Schema({
 });
 
 // PRE-SAVE HOOK - hash password only if it exists
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function () {
     if (this.isNew || this.isModified("password")) {
         if (this.password) {
             const saltRounds = 10;
             this.password = await bcrypt.hash(this.password, saltRounds);
         }
     }
-    next();
+    //next();
 });
 
 // INSTANCE METHOD - compare password

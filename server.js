@@ -2,6 +2,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const passport = require("./config/passport");
 const connectDB = require("./config/connection");
 const userRoutes = require("./routes/userRoutes");
 
@@ -13,6 +14,7 @@ connectDB();
 
 // MIDDLEWARE
 app.use(express.json());
+app.use(passport.initialize());
 
 // ROUTES
 app.get("/", (req, res) => {
